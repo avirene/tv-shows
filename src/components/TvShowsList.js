@@ -1,11 +1,14 @@
-import { Component } from "react";
+import { Component } from 'react';
+import { Card, Segment } from 'semantic-ui-react';
 
 class TvShowsList extends Component {
   render() {
     return (
-      <div>
-        <ul>{this.props.children}</ul>
-      </div>
+      <Segment>
+        <Card.Group doubling itemsPerRow={4}>
+          {this.props.children}
+        </Card.Group>
+      </Segment>
     );
   }
 }

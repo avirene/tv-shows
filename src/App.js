@@ -3,6 +3,7 @@ import { xor } from 'lodash';
 import TvShowItem from './components/TvShowItem';
 import TvShowsList from './components/TvShowsList';
 import PopularShows from './popular-shows.json';
+import { Container, Divider, Header, Input } from 'semantic-ui-react';
 
 class App extends Component {
   state = {
@@ -31,26 +32,30 @@ class App extends Component {
     const { searchFieldValue, favorites } = this.state;
 
     return (
-      <div>
-        <h1>Tv Shows</h1>
-        <input
+      <Container>
+        <Header as="h1">Tv Shows</Header>
+        <Divider />
+        <Input
           placeholder="Search shows..."
           value={searchFieldValue}
           onChange={this.handleSearchFieldChange.bind(this)}
         />
         <TvShowsList>
-          {this.filterShows().map(({ id, poster_path, name, vote_average }) => (
-            <TvShowItem
-              key={id}
-              name={name}
-              posterPath={poster_path}
-              rating={vote_average}
-              onClick={this.handleTvShowItemClick.bind(this, id)}
-              favorite={favorites.some((favorite) => id === favorite)}
-            />
-          ))}
+          {this.filterShows().map(
+            ({ id, poster_path, name, vote_average, first_air_date }) => (
+              <TvShowItem
+                key={id}
+                name={name}
+                posterPath={poster_path}
+                rating={vote_average}
+                releaseDate={first_air_date}
+                onClick={this.handleTvShowItemClick.bind(this, id)}
+                favorite={favorites.some((favorite) => id === favorite)}
+              />
+            )
+          )}
         </TvShowsList>
-      </div>
+      </Container>
     );
   }
 }
